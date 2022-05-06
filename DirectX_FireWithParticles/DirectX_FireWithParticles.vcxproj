@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="shaders\ps\Color.ps" />
     <None Include="shaders\ps\Font.ps" />
     <None Include="shaders\ps\Light.ps" />
@@ -37,6 +38,8 @@
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="colorshaderclass.h" />
     <ClInclude Include="d3dclass.h" />
+    <ClInclude Include="FireClass.h" />
+    <ClInclude Include="FireShaderClass.h" />
     <ClInclude Include="fontclass.h" />
     <ClInclude Include="fontshaderclass.h" />
     <ClInclude Include="fpsclass.h" />
@@ -56,6 +59,8 @@
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="colorshaderclass.cpp" />
     <ClCompile Include="d3dclass.cpp" />
+    <ClCompile Include="FireClass.cpp" />
+    <ClCompile Include="FireShaderClass.cpp" />
     <ClCompile Include="fontclass.cpp" />
     <ClCompile Include="fontshaderclass.cpp" />
     <ClCompile Include="fpsclass.cpp" />
@@ -171,10 +176,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>Default</LanguageStandard>
+      <ShowIncludes>true</ShowIncludes>
+      <AdditionalIncludeDirectories>D:\Facultate\Sisteme de Procesare Grafica\DirectX_FireWithParticles\packages\directxtk_desktop_2017.2022.3.24.2;D:\Facultate\Sisteme de Procesare Grafica\DirectX_FireWithParticles\packages\fx11_desktop_2017.2021.12.2.2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>D:\Facultate\Sisteme de Procesare Grafica\DirectX_FireWithParticles\packages\fx11_desktop_2017.2021.12.2.2\native\lib\x64\Debug\Effects11d.lib;D:\Facultate\Sisteme de Procesare Grafica\DirectX_FireWithParticles\packages\fx11_desktop_2017.2021.12.2.2\native\lib\x64\Release\Effects11.lib;D:\Facultate\Sisteme de Procesare Grafica\DirectX_FireWithParticles\packages\directxtk_desktop_2017.2022.3.24.2\native\lib\x64\Release\DirectXTK.lib;D:\Facultate\Sisteme de Procesare Grafica\DirectX_FireWithParticles\packages\directxtk_desktop_2017.2022.3.24.2\native\lib\x64\Debug\DirectXTK.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -195,5 +203,16 @@
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\fx11_desktop_2017.2021.12.2.2\build\native\fx11_desktop_2017.targets" Condition="Exists('..\packages\fx11_desktop_2017.2021.12.2.2\build\native\fx11_desktop_2017.targets')" />
+    <Import Project="..\packages\Microsoft.XAudio2.Redist.1.2.8\build\native\Microsoft.XAudio2.Redist.targets" Condition="Exists('..\packages\Microsoft.XAudio2.Redist.1.2.8\build\native\Microsoft.XAudio2.Redist.targets')" />
+    <Import Project="..\packages\directxtk_desktop_2017.2022.3.24.2\build\native\directxtk_desktop_2017.targets" Condition="Exists('..\packages\directxtk_desktop_2017.2022.3.24.2\build\native\directxtk_desktop_2017.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\fx11_desktop_2017.2021.12.2.2\build\native\fx11_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\fx11_desktop_2017.2021.12.2.2\build\native\fx11_desktop_2017.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.XAudio2.Redist.1.2.8\build\native\Microsoft.XAudio2.Redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.XAudio2.Redist.1.2.8\build\native\Microsoft.XAudio2.Redist.targets'))" />
+    <Error Condition="!Exists('..\packages\directxtk_desktop_2017.2022.3.24.2\build\native\directxtk_desktop_2017.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_desktop_2017.2022.3.24.2\build\native\directxtk_desktop_2017.targets'))" />
+  </Target>
 </Project>

@@ -54,6 +54,7 @@
     <None Include="shaders\ps\Texture.ps">
       <Filter>Shader Files\ps</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="applicationclass.h">
@@ -105,6 +106,12 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="zoneclass.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="FireShaderClass.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="FireClass.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -161,6 +168,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="zoneclass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FireShaderClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FireClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

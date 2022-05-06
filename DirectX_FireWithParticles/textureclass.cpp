@@ -21,6 +21,19 @@ TextureClass::~TextureClass()
 {
 }
 
+bool TextureClass::InitializeDDS(ID3D11Device* device, ID3D11DeviceContext* deviceContext, const wchar_t* filename)
+{
+	HRESULT result;
+
+	result = CreateDDSTextureFromFile(device, deviceContext, filename, NULL, &m_textureView);
+
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	return true;
+}
 
 bool TextureClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* filename)
 {
@@ -30,7 +43,6 @@ bool TextureClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceC
 	HRESULT hResult;
 	unsigned int rowPitch;
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
-
 
 	// Load the targa image data into memory.
 	result = LoadTarga(filename, height, width);
@@ -149,7 +161,8 @@ bool TextureClass::LoadTarga(char* filename, int& height, int& width)
 	height = (int)targaFileHeader.height;
 	width = (int)targaFileHeader.width;
 	bpp = (int)targaFileHeader.bpp;
-
+	bpp = 32;
+	height = 256;
 	// Check that it is 32 bit and not 24 bit.
 	if(bpp != 32)
 	{

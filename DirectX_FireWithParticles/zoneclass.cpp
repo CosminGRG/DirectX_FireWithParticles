@@ -10,6 +10,7 @@ ZoneClass::ZoneClass()
 	m_Camera = 0;
 	m_Position = 0;
 	m_Terrain = 0;
+	m_Fire = 0;
 }
 
 
@@ -80,6 +81,26 @@ bool ZoneClass::Initialize(D3DClass* Direct3D, HWND hwnd, int screenWidth, int s
 		MessageBox(hwnd, L"Could not initialize the terrain object.", L"Error", MB_OK);
 		return false;
 	}
+
+	// Create the fire object.
+	m_Fire = new FireClass;
+	if (!m_Fire)
+	{
+		return false;
+	}
+
+	char square[256] = "data/fire/square.txt";
+	char fire01dds[256] = "data/fire/fire01.dds";
+	char noise01dds[256] = "data/fire/noise01.dds";
+	char alpha01dds[256] = "data/fire/alpha01.dds";
+	// Initialize the terrain object.
+	result = m_Fire->Initialize(Direct3D->GetDevice(), Direct3D->GetDeviceContext(), square, fire01dds,
+		noise01dds, alpha01dds);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the fire object.", L"Error", MB_OK);
+		return false;
+	}
 	
 	// Set the UI to display by default.
 	m_displayUI = true;
@@ -110,6 +131,14 @@ void ZoneClass::Shutdown()
 	{
 		delete m_Camera;
 		m_Camera = 0;
+	}
+
+	// Release the terrain object.
+	if (m_Fire)
+	{
+		m_Fire->Shutdown();
+		delete m_Fire;
+		m_Fire = 0;
 	}
 
 	//// Release the user interface object.
@@ -235,6 +264,13 @@ bool ZoneClass::Render(D3DClass* Direct3D, ShaderManagerClass* ShaderManager)
 		return false;
 	}
 
+	result = ShaderManager->RenderFireShader(Direct3D->GetDeviceContext(), m_Fire->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, 
+											 m_Fire->GetTexture1(), m_Fire->GetTexture2(), m_Fire->GetTexture3());
+
+	if (!result)
+	{
+		return false;
+	}
 	//// Render the user interface.
 	//if(m_displayUI)
 	//{
